@@ -1,0 +1,203 @@
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:300');
+    
+*
+{
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100%;
+    max-width: 100%;
+    font-family: 'Roboto';   
+}
+
+a {
+ text-decoration:none;
+}
+
+.container {
+    display: grid;
+    width: 100%;
+    max-width: 100%;
+    grid-template-areas:
+        "header header header"
+        "nav content side"
+        "footer footer footer";
+    grid-template-columns: 150px 1fr auto;
+    grid-template-rows: 150px 1fr 50px;         
+    }
+
+    .header {
+        grid-area: header;
+        display: flex;
+        padding: 5px;
+        background: url(https://media.gettyimages.com/photos/the-road-to-picture-id94330576?s=2048x2048);
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        transform: rotate(180deg);
+        }
+
+        .logo {
+            position: absolute; 
+            right: 5px;
+            top: 5px;
+            height: 140px; 
+            width: 140px; 
+            -webkit-transform: rotate(180deg);
+            -moz-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            -o-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+
+        .slogan {
+            float: right; 
+            font-style: italic; 
+            font-size: 400%;
+            margin-right: 170px;
+            margin-left: 35%;
+            color: white;
+            -webkit-transform: rotate(180deg);
+            -moz-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            -o-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+        
+        .cart {
+            height: 60px;
+            width: 60px;
+            color: darkblue;
+            font-size: 18px;
+            -webkit-transform: rotate(180deg);
+            -moz-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+            -o-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+
+    .aside-l {
+        grid-area: nav;
+        padding: 5px;
+        background: url(https://media.gettyimages.com/photos/the-road-to-picture-id94330576?s=2048x2048);
+        background-size: cover;
+        background-repeat: no-repeat;
+        }
+
+    .aside-l a {
+        display: block;
+        width: 100px;
+        color: white;
+        padding: 16px;
+        text-decoration: none;
+        }
+
+    .aside-l a.active {
+        background-color: #4CAF50;
+        }
+
+    .aside-l a:hover:not(.active) {
+        background-color: #555;
+       }
+   
+    .search {
+        color: white;
+        padding-top: 16px;
+        padding-bottom: 32px;
+    }
+      
+    .aside-r {
+        border-top: solid 1px rgb(20, 1, 65);
+        grid-area: side;
+        background: url(https://media.gettyimages.com/photos/the-road-to-picture-id94330576?s=2048x2048);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        padding: 5px;
+        }
+    
+    article {
+        min-height: 500px;
+    }
+    
+    .footer {
+        grid-area: footer;
+        padding: 5px;
+        text-align: center;
+        background: url(https://image.freepik.com/free-photo/pavement-texture_1084-97.jpg);
+        color: white;
+        }
+
+@media only screen and (max-width: 768px) {
+    .container {
+        grid-template-areas:
+            "header"
+            "nav"
+            "content"
+            "side"
+            "footer";
+                
+        grid-template-columns: 1fr;
+        grid-template-rows:
+        minmax(150px, auto) /* Header */
+            minmax(75px, auto) /* Nav */
+            1fr /* Content */
+            minmax(325px, auto) /* Sidebar */
+            auto; /* Footer */
+            }
+                
+            nav, aside {
+                margin: 0;
+                }
+
+            .slogan {font-size: 2em;
+                margin-left: 10%;}
+            .aside-l a {float: left;}
+        }
+
+@media only screen and (min-width: 768px) {
+    .container {
+        grid-template-areas:
+            "header"
+            "nav"
+            "content"
+            "side"
+            "footer";
+                
+        grid-template-columns: 1fr;
+        grid-template-rows:
+            minmax(150px, auto) /* Header */
+            minmax(75px, auto) /* Nav */
+            1fr /* Content */
+            minmax(325px, auto) /* Sidebar */
+            auto; /* Footer */
+            }
+                
+            nav, aside {
+                margin: 0;
+                }
+            
+            .slogan {font-size: 3em;
+                }
+
+            .aside-l a {float: left;}
+        }
+
+@media only screen and (min-width: 992px) {
+    .container {
+            grid-template-areas:
+                "header header header"
+                "nav content side"
+                "footer footer footer";
+            grid-template-columns: 150px 1fr auto;
+            grid-template-rows: 150px 1fr 50px;         
+        }
+        .slogan {font-size: 400%;}
+}
+

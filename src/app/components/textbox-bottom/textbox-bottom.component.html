@@ -1,0 +1,8 @@
+<div id="textbox">
+  <p class="shipping">{{ product.shipping }}</p>
+  <p *ngIf = "product.shipping">|</p>
+  <p class="new">{{ product.new | booleanString}}</p>
+  <p *ngIf = "product.new">|</p>
+  <p class="time">{{ product.discountUntil }}</p>
+  </div>
+

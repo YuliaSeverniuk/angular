@@ -1,0 +1,13 @@
+<div class="product_container">
+  <ng-container *ngFor="let product of products">
+    <div class="card">
+      <ng-container *ngIf="product.main">
+        <app-top-card [product] = "product"></app-top-card>
+      </ng-container>
+
+      <ng-container *ngIf="!product.main">
+        <app-card [product] = "product"></app-card>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>

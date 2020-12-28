@@ -1,0 +1,9 @@
+.maincontainer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+ .address h1, p {
+  margin-right: 10px;
+}

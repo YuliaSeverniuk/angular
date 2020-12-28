@@ -1,0 +1,35 @@
+ngb-rating {
+  font-size: 20px;
+  color:yellow;
+}
+
+.stars {
+  color: blue;
+}
+
+.buttons{
+  display: flex;
+  justify-content: space-between;
+}
+
+.mat-raised-button {
+  padding: 0px;
+  border: none;
+  background: none;
+  outline: none;
+  box-shadow: none;
+  color: blue;
+  user-select: none;
+}
+
+.mat-raised-button:focus {
+  border: none;
+  background:none;
+  outline: none;
+  box-shadow: none;
+  user-select: none;
+}
+
+::ng-deep .mat-button-focus-overlay {
+  background-color: transparent !important;
+}

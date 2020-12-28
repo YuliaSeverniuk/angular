@@ -1,0 +1,15 @@
+
+.bottomSlides {
+  display: flex;
+  justify-content: center;
+}
+
+.slide1, .slide2 {
+  margin: 10px 2px 20px 2px;
+  border: solid 2px lightgray;
+  cursor: pointer;
+} 
+
+.highlighted {
+  border: solid 2px black;
+}

@@ -1,0 +1,65 @@
+<div class="maincontainer">
+
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8">
+        <h1>Contact Form</h1>
+        <form #contactForm="ngForm" (ngSubmit)="contactForm.form.valid && contactFormData(contactForm)" novalidate>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control form-control-sm" 
+              id="name"
+              ngModel name="name" #name="ngModel" required>     
+              <div *ngIf="name.invalid && name.touched || contactForm.submitted">
+                <div class="alert alert-danger" *ngIf=" name.errors?.required">Name is required</div>
+              </div>                  
+          </div>
+          
+          <div class="form-group">
+            <label for="surename">Surename</label>
+            <input type="text" class="form-control form-control-sm" 
+              id="surename"
+              ngModel name="surename" #surename="ngModel" required>     
+              <div *ngIf="surename.invalid && surename.touched || contactForm.submitted">
+                <div class="alert alert-danger" *ngIf="surename.errors?.required">Surname is required</div>
+              </div>                  
+          </div>
+  
+          <div class="form-group">
+            <label for="email">email</label>
+            <input type="email" class="form-control form-control-sm" 
+                id="email" required email
+                ngModel name="email" #email="ngModel"> 
+                <div *ngIf="email.invalid && email.touched || contactForm.submitted">
+                  <div class="alert alert-danger" *ngIf="email.errors?.required">Email is required</div>
+                  <div class="alert alert-danger" *ngIf="email.errors?.email">Please enter a valid email</div>
+                </div>                       
+          </div>
+  
+          <div class="form-group">
+            <label for="description">Description</label>
+              <textarea class="form-control" id="description" ngModel name="descriptione" #description="ngModel" required></textarea>  
+              <div *ngIf="description.invalid && description.touched || contactForm.submitted">
+              <div class="alert alert-danger" *ngIf="description.errors?.required">Description is required</div> 
+              </div>                 
+          </div>
+         
+      
+          <button type="submit" class="btn btn-success">Submit</button>
+        </form> 
+      </div>
+    </div>
+  </div>
+  
+  <div class = "address">
+    <h1>Our address</h1>
+    <p>Kyiv</p>
+    <p>12 Hreschatik st.</p>
+    <p>Ukraine</p>
+    <p>Please call us on 000 000 00 00</p>
+  </div>
+
+  </div>
+    <app-map></app-map>
+  

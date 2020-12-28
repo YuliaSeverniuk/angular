@@ -1,0 +1,42 @@
+<div class="imgcard">
+  <label>Select image:</label>
+  <p-fileUpload name="demo[]" customUpload="true" (uploadHandler)="fileUploader($event)"  accept="image/*" 
+    (onSelect)="fileSelect($event)">
+          <ng-template pTemplate="content">
+              <ul *ngIf="uploadedFiles.length">
+                  <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+              </ul>
+          </ng-template>
+  </p-fileUpload>
+</div>
+
+<form [formGroup]="addProductForm" (ngSubmit)="submitForm()" novalidate>
+  <div class="form-group">
+    <label>Price:</label>
+      <input class="form-control" formControlName="price" type="text">
+    </div>
+    <div *ngIf="addProductForm.controls['price'].invalid && (addProductForm.controls['price'].dirty || addProductForm.controls['price'].touched)" class="alert alert-danger">
+      <div *ngIf="addProductForm.controls['price'].errors.required">
+        Price is required.
+      </div>
+  </div>
+
+  <div class="form-group">
+    <label>Discount:</label>
+      <input class="form-control" formControlName="discount" type="text">
+    </div>
+    <div *ngIf="addProductForm.controls['discount'].invalid && (addProductForm.controls['discount'].dirty || addProductForm.controls['discount'].touched)" class="alert alert-danger">
+      <div *ngIf="addProductForm.controls['discount'].errors.required">
+      discount is required.
+      </div>
+  </div>
+
+  <div> <img src="{{imgString}}"> </div>
+
+
+<button type="submit" class="btn btn-success">
+    Save
+</button>
+
+</form>
+

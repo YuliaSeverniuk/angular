@@ -1,0 +1,20 @@
+<div class="product-card-top">
+  <a href="#" routerLink="/product/{{product.id}}">
+  <div class="badge" > <app-discount [product] = "product"></app-discount></div>
+  <div class="product-top-img">
+    <div> <img src="{{product.imgUrl}}"> </div>
+  </div> 
+  <div class="bottom_data"> 
+  <div id="textbox_top">
+  <p class="price">{{product.price - product.price * product.discount / 100 | currency:'EURO '}}
+    <small class="strikediag">{{ product.price | currency:'EURO '}}</small></p>
+  <p class="shop">{{ product.shop }}</p>
+  </div>
+  <div class="description" matTooltip= "{{product.description}}" ><span class="lined">{{ product.name }}</span> 
+    {{ product.description | truncate:[35, '...']  }}</div>
+  <div id="textbox_bottom">
+    <app-textbox-bottom [product] = "product"></app-textbox-bottom>
+  </div>
+  </div> 
+  </a>
+  </div>

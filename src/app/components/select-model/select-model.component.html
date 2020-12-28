@@ -1,0 +1,15 @@
+<article>
+  <h3><span>Select a model:</span></h3>
+  <select (change)="selectChangeHandler($event)">
+    <option value=""></option>
+      <option value="Argon 18">Argon 18</option>
+      <option value="Aquila Cycles">Aquila Cycles</option>
+      <option value="Banshee">Banshee</option>
+      <option value="Brodie Bicycles">Brodie Bicycles</option>
+      <option value="Devinci">Devinci</option>
+      <option value="KindHuman">KindHuman</option>
+      <option value="KindHuman Pro">KindHuman Pro</option>
+      <option value="Brodie Bicycles Pro">Brodie Bicycles Pro</option>
+  </select>
+  <p><span>You selected: </span><b>{{selectedModel}}</b></p>
+</article>

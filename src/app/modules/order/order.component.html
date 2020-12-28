@@ -1,0 +1,103 @@
+<form [formGroup]="orderForm" (ngSubmit)="submitForm()" novalidate>
+
+    <div class="itemsList" *ngIf="step === 1">
+      <h2>Selected Items</h2>
+      <div class="selectBox" (click)="showCheckboxes()">
+        <select id="selectItem">
+          <option id="items">Confirm selected items</option>
+        </select>
+        <div class="overSelect"></div>
+      </div>
+      <div #checkboxes class="checkboxes">
+        <div *ngFor="let item of items; let i = index">
+         <label><input type="checkbox" [checked]="boxIndex[i]" [value]="item.id" (change)="onCheckboxChange($event, i)"/>
+          {{ item.name }}, {{ item.description }}</label>
+        </div>
+        <div class="alert alert-danger" *ngIf="this.orderForm.controls['itemsArray'].errors?.required">
+          Confirmation is required. Please select at least one.</div>
+      </div>
+    </div>
+
+    <div formGroupName="deliveryAddress" class="deliveryAddress"  *ngIf="step === 2 && itemsArray.length > 0">
+
+      <h2>Delivery Address</h2>
+      <label>
+        Country:
+        <input type="text" formControlName="country">
+        <div *ngIf="isSubmitted || this.orderForm.controls['deliveryAddress']['controls']['country'].touched">
+          <div class="alert alert-danger" 
+          *ngIf="this.orderForm.controls['deliveryAddress']['controls']['country'].errors?.required">Country is required</div>
+        </div>  
+      </label><br>
+      <label>
+        City:
+        <input type="text" formControlName="city">
+        <div *ngIf="isSubmitted || this.orderForm.controls['deliveryAddress']['controls']['city'].touched">
+          <div class="alert alert-danger" 
+          *ngIf="this.orderForm.controls['deliveryAddress']['controls']['city'].errors?.required">Country is required</div>
+        </div> 
+      </label><br>
+      <label>
+        Address:
+        <input type="text" formControlName="address">
+        <div *ngIf="isSubmitted || this.orderForm.controls['deliveryAddress']['controls']['address'].touched">
+          <div class="alert alert-danger" 
+          *ngIf="this.orderForm.controls['deliveryAddress']['controls']['address'].errors?.required">Country is required</div>
+        </div> 
+      </label><br>
+    </div>
+
+    <div class="paymentMethod"  *ngIf="step === 3 && objectKeys(deliveryAddress).length > 0">
+      <h2>Preferable payment method</h2>
+      <select id="paymentSelect" multiple formControlName="paymentMethod">
+        <option id="payment" *ngFor="let method of paymentMethods" [ngValue]="method" (change)="changeMethod($event)">{{method}}
+        </option>
+     </select>
+     <div *ngIf="isSubmitted">
+      <div class="alert alert-danger" *ngIf="this.orderForm.controls.paymentMethod.errors?.required"> Please select payment method.</div>
+    </div>
+    </div>
+
+    <div class="deliveryDate" *ngIf="step === 4 && paymentMethod.value.length > 0">
+      <h2>Delivery Date</h2>
+      <label>
+        <input type="radio" value="Today" formControlName="deliveryDate">
+        <span>Today</span>
+      </label><br>
+      <label>
+        <input type="radio" value="Tomorrow" formControlName="deliveryDate">
+        <span>Tomorrow</span>
+      </label><br><br>
+      <label>
+        <span>
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Select delivery date" formControlName="deliveryDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </span>
+      </label>
+
+      <div *ngIf="isSubmitted">
+        <div class="alert alert-danger" *ngIf="this.orderForm.controls.deliveryDate.errors?.required"> 
+          Please select delivery date.</div>
+      </div>
+    </div>
+
+    <div class="summarize" *ngIf="step === 5 && paymentMethod.value.length > 0">
+      <h2>Order Summary</h2>
+      <p>Ordered Items:</p>
+      <p *ngFor="let item of items">
+        <span *ngIf="itemsArray.indexOf(item.id.toString()) > -1">{{item.name}}, {{ item.description }}</span>
+      </p>
+      <p>Delivery address:{{deliveryAddress.value.country}}, {{deliveryAddress.value.city}}, {{deliveryAddress.value.address}}</p>
+      <p>Payment method: {{paymentMethod.value}}</p>
+      <p>Delivery date: {{deliveryDate.value}}</p>
+    </div>
+
+    <div class="buttons">
+      <a class="btn btn-primary mx-2" *ngIf="step != 1" (click)="previous()">Previous</a>
+      <a class="btn btn-primary mx-2" *ngIf="step != 5" (click)="next()">Next</a>
+      <button type="submit" class="btn btn-primary mx-2" >Submit</button>
+    </div>
+</form>

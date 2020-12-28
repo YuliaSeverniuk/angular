@@ -1,0 +1,14 @@
+p {
+  padding-top: 10px;
+  margin-bottom: 5px;
+}
+
+#color, #size, #quantity  {
+  font-size: 14px;
+  border-color: rgb(82, 80, 80);
+  border-radius: 0;
+}
+
+#quantity {
+  height: 30px;
+}

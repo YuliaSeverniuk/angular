@@ -1,0 +1,7 @@
+
+<ngb-rating [max]="5" [(rate)]="currentRate" [readonly]="true"></ngb-rating> <samp class="stars">({{product.review.length}})</samp>
+
+<div class="buttons">
+  <button mat-raised-button (click)="openDialog()">Read {{product.review.length}} reviews</button>
+  <button mat-raised-button (click)="openWriteDialog()">Write a review</button>
+</div>

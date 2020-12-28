@@ -1,0 +1,39 @@
+<div class="container" *ngIf="product">
+
+  <div class = "imgpart">
+    <div class = mainimg> 
+      <img #mainImg src="{{product.imgUrl}}">
+      <app-zoom [product] = "product"></app-zoom>
+    </div>
+    
+    <p class = "colorList">{{ slashColor }}</p>
+
+    <app-bottom-slider [product] = "product" (slideEvent)="receiveSlideEvent($event)"></app-bottom-slider>
+  </div>
+
+  <div class = "textpart">
+    <h1 class="productName">{{ product.name }}</h1>
+    
+    <div class="truncate">
+      <p class="description">
+        {{ product.description | slice:0:charLimit}}
+        <span *ngIf="product.description.length > charLimit && product.description.length != charLimit"> 
+          <button class="truncate" (click)="showMore()">...(Read more)</button> </span>
+        <span *ngIf="product.description.length == charLimit"> 
+          <button class="truncate" (click)="showLess()">(Read less)</button> </span>
+      </p>
+    </div>
+
+    <h3 class="price">{{ product.price | currency:'EURO ' }}</h3>
+
+    <app-rating [product] = "product"></app-rating>
+
+    <app-dropdown-lists #dropdowns [product] = "product" (dropdownsEvent) = "dropdownsData = $event"></app-dropdown-lists>
+
+    <div class="buttons">
+      <button mat-flat-button color="primary" (click)="addToCart(product)" ><mat-icon>shopping_cart</mat-icon>Add to cart</button>
+      <button mat-stroked-button><i class="fa fa-magic"></i>Add to Wish List</button>
+    </div>
+  </div>
+
+</div>

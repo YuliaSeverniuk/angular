@@ -1,0 +1,6 @@
+#textbox {
+  display: flex;
+  padding: 10px;
+  align-content: center;
+  justify-content: space-between;
+}

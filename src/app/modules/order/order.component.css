@@ -1,0 +1,56 @@
+.itemsList, .deliveryAddress, .paymentMethod, .deliveryDate, .summarize, .submitted {
+  margin: 50px;
+  min-height: 300px;
+}
+
+h2 {
+  color: rgb(33, 80, 151);
+}
+
+.selectBox {
+  position: relative;
+  width: 100%;
+}
+
+#selectItem, #selectItem #items{
+  background-color:rgb(33, 80, 151) !important;
+  width: 100%;
+  height: 40px;
+  color: white;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.checkboxes {
+  display: none;
+  border: 1px white solid;
+}
+
+.checkboxes label {
+  display: block;
+}
+
+.checkboxes label:hover {
+  background-color: #1e90ff;
+}
+#paymentSelect, #paymentSelect #payment {
+  width: 200px;
+  height: auto;
+}
+
+.buttons {
+  margin-left: 50px;
+}
+
+select, select #payment{
+  background-color:rgb(99, 156, 241) !important;
+  width: 100%;
+  height: 40px;
+  color: white;
+}

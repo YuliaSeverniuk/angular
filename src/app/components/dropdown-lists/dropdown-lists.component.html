@@ -1,0 +1,16 @@
+<p><strong>Color</strong></p>
+<select id="selectColor" #color class="form-control"  (change) = "selectFeature($event, 'selectColor')">
+  <option value="" disabled selected>Select color</option>
+  <option *ngFor="let color of product.color" [value]="color">{{color}}</option>
+</select>
+
+<p><strong>Size</strong></p>
+<select id="selectSize" #size class="form-control" (change) = "selectFeature($event, 'selectSize')">
+  <option value="" disabled selected>Select size</option>
+  <option *ngFor="let size of product.size" [value]="size">{{size}}</option>
+</select>
+
+<p><strong>Availability: </strong> Please select options</p>
+
+<p><strong>Quantity</strong></p>
+<input id="quantity" #quantity type="number" min="1" (change) = "selectFeature($event, 'selectQuantity')" [(ngModel)]="selectedQuantity">

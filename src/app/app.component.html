@@ -1,0 +1,24 @@
+<div class="container">
+    <header class="header">
+        <button class = "cart" routerLink="/order"><mat-icon color="primary">shopping_cart</mat-icon>
+            <span *ngIf="items.length > 0">{{items.length}}</span></button>
+        <h1 class="slogan">Bicycle shop VELOMANIA</h1> 
+        <img class="logo" src="https://static8.depositphotos.com/1178962/1020/v/450/depositphotos_10201688-stock-illustration-bicycle-set.jpg" alt=""/>              
+    </header>
+    <nav class="aside-l">           
+        <a routerLink="" routerLinkActive="active"
+              [routerLinkActiveOptions]="{exact:true}">Home</a>
+        <a routerLink="/contact" routerLinkActive="active">Contact</a>
+    </nav>
+    <aside class="aside-r">
+        <div class="search">                   
+            <app-select-model></app-select-model>
+            <app-datepicker></app-datepicker>   
+            <button routerLink="/new-product">Create new product</button>            
+        </div>             
+    </aside>
+    <article>
+        <router-outlet></router-outlet>
+    </article>
+    <footer class="footer">Copyright © 2020. Disclaimer</footer>
+</div>

@@ -1,0 +1,66 @@
+.product_container {
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  /*overflow-y: auto;
+  height: 560px; */
+  display: grid;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  grid-template-columns: repeat(3, 330px);
+  grid-template-rows: repeat(4, 222px);
+  grid-template-areas: "card1 card2 card3" 
+                     "card1 card4 card5";
+  }
+
+  .card:nth-child(1) {
+      grid-area: card1;
+    }
+    
+    .card:nth-child(2) {
+      grid-area: card2;
+    }
+    
+    .card:nth-child(3) {
+      grid-area: card3;
+    }
+
+    .card:nth-child(4) {
+      grid-area: card4;
+    }
+    
+    .card:nth-child(5) {
+      grid-area: card5;
+    }
+
+
+@media only screen and (max-width: 768px) {
+  .product_container {
+    grid-template-areas: "card1"
+                         "card1"
+                         "card2" 
+                         "card3" 
+                         "card4"
+                         "card5";
+      grid-template-columns: repeat(auto-fill, minmax(100%, 330px));
+      } 
+  }
+                      
+@media only screen and (min-width: 768px) {
+  .product_container {
+    grid-template-areas: "card1 card2" 
+                         "card1 card3" 
+                         "card4 card5";
+      grid-template-columns: minmax(330px, 330px);;
+      } 
+  }
+                      
+@media only screen and (min-width: 992px) {
+  .product_container {
+    grid-template-areas: "card1 card2 card3" 
+                         "card1 card4 card5";
+      grid-template-columns: 330px 330px 330px;
+      } 
+  }
+
+  

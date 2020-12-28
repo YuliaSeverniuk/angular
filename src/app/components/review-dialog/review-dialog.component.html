@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Reviews</h2>
+<mat-dialog-content>
+  <ng-container *ngFor="let element of data">
+    <p>Name: {{ element.author }}</p>
+    <p>{{ element.text }}</p>
+    <p>Rating: {{ element.rating }}</p>
+    <hr>
+  </ng-container>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
