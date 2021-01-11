@@ -8,30 +8,143 @@
               </ul>
           </ng-template>
   </p-fileUpload>
+  <div *ngIf="imgString.length"> 
+    <img class="preview" src="{{imgString}}"> 
+  </div>
+  <div *ngIf="isSubmitted">
+    <div *ngIf="imgString.length == 0" class="alert alert-danger">
+          Picture is required.
+    </div>
+  </div>
 </div>
 
 <form [formGroup]="addProductForm" (ngSubmit)="submitForm()" novalidate>
+
   <div class="form-group">
     <label>Price:</label>
-      <input class="form-control" formControlName="price" type="text">
-    </div>
-    <div *ngIf="addProductForm.controls['price'].invalid && (addProductForm.controls['price'].dirty || addProductForm.controls['price'].touched)" class="alert alert-danger">
-      <div *ngIf="addProductForm.controls['price'].errors.required">
-        Price is required.
-      </div>
+    <input class="form-control" formControlName="price" type="text">
   </div>
+  <div *ngIf="isSubmitted || (addProductForm.controls['price'].dirty || addProductForm.controls['price'].touched)"> 
+    <div *ngIf="addProductForm.controls['price'].invalid"class="alert alert-danger">
+          Please input correct value.
+    </div>
+    <div *ngIf="addProductForm.controls['price'].errors?.required" class="alert alert-danger">
+        Price is required.
+    </div>
+  </div>
+
 
   <div class="form-group">
     <label>Discount:</label>
-      <input class="form-control" formControlName="discount" type="text">
+    <input class="form-control" formControlName="discount" type="text">
+  </div>
+  <div *ngIf="isSubmitted || (addProductForm.controls['discount'].dirty || addProductForm.controls['discount'].touched)">
+    <div *ngIf="addProductForm.controls['discount'].invalid" class="alert alert-danger">
+        Please input correct value.
+    </div>            
+    <div *ngIf="addProductForm.controls['discount'].errors?.required" class="alert alert-danger">
+        Discount is required.
     </div>
-    <div *ngIf="addProductForm.controls['discount'].invalid && (addProductForm.controls['discount'].dirty || addProductForm.controls['discount'].touched)" class="alert alert-danger">
-      <div *ngIf="addProductForm.controls['discount'].errors.required">
-      discount is required.
+  </div>
+
+  <div class="form-group">
+    <label>Main:</label>
+    <input class="form-control" formControlName="main" type="checkbox">
+  </div>
+  
+  <div class="form-group">
+    <label>Shop:</label>
+    <input class="form-control" formControlName="shop" type="text">
+  </div>
+  <div *ngIf="isSubmitted || (addProductForm.controls['shop'].dirty || addProductForm.controls['shop'].touched)" >
+      <div *ngIf="addProductForm.controls['shop'].errors?.required" class="alert alert-danger">
+          Shop is required.
       </div>
   </div>
 
-  <div> <img src="{{imgString}}"> </div>
+  <div class="form-group">
+    <label>Name:</label>
+    <input class="form-control" formControlName="name" type="text">
+  </div>
+  <div *ngIf="isSubmitted || (addProductForm.controls['name'].dirty || addProductForm.controls['name'].touched)">
+    <div *ngIf="addProductForm.controls['name'].errors?.required" class="alert alert-danger">
+          Name is required.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Description:</label>
+    <input class="form-control" formControlName="description" type="text">
+  </div>
+  <div *ngIf="isSubmitted || (addProductForm.controls['description'].dirty || addProductForm.controls['description'].touched)">
+    <div *ngIf="addProductForm.controls['description'].errors?.required" class="alert alert-danger">
+          Description is required.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Shipping:</label>
+    <input class="form-control" formControlName="shipping" type="text">
+  </div>
+  <div *ngIf="isSubmitted || (addProductForm.controls['shipping'].dirty || addProductForm.controls['shipping'].touched)">
+    <div *ngIf="addProductForm.controls['shipping'].errors?.required" class="alert alert-danger">
+          Shipping is required.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Discount Until:</label>
+    <div>
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Select delivery date" formControlName="discountUntil">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div *ngIf="isSubmitted">
+    <div *ngIf="addProductForm.controls['discountUntil'].errors?.required" class="alert alert-danger">
+          Discount Until is required.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>New:</label>
+    <input class="form-control" formControlName="isNew" type="checkbox">
+  </div>
+  
+  <div class="form-group">
+    <label>Color:</label> 
+  <div formArrayName="colorArray">
+    <div  *ngFor="let colorArray of colorArray.controls; let index = index; let last = last; let first = first">   
+      <input type="text"  class="inputArrays" [formControlName]="index" required>
+        <em *ngIf="!first" (click)="removeColor(index)">Remove</em>
+        <em *ngIf="last" (click)="addColor()">Add</em>
+        <div *ngIf="isSubmitted">
+          <div *ngIf="getColorValidity(index)" class="alert alert-danger">
+                Color is required.
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+  <div class="form-group">
+    <label>Size:</label> 
+  <div formArrayName="sizeArray">
+    <div *ngFor="let sizeArray of sizeArray.controls; let index = index; let last = last; let first = first">
+      <input type="text"  class="inputArrays" [formControlName]="index" required>
+        <em *ngIf="!first" (click)="removeSize(index)">Remove</em>
+        <em *ngIf="last" (click)="addSize()">Add</em>
+        <div *ngIf="isSubmitted">
+          <div *ngIf="getSizeValidity(index)" class="alert alert-danger">
+                Size is required.
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
 
 
 <button type="submit" class="btn btn-success">

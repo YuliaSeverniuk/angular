@@ -39,6 +39,7 @@ import { ZoomComponent } from './components/zoom/zoom.component';
 import { BottomSliderComponent } from './components/bottom-slider/bottom-slider.component';
 import { ContactSuccessComponent } from './components/contact-success/contact-success.component';
 import { OrderSuccessComponent } from './modules/order-success/order-success.component';
+import { NewProductSuccessComponent } from './modules/new-product-success/new-product-success.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { OrderSuccessComponent } from './modules/order-success/order-success.com
     BottomSliderComponent,
     ContactSuccessComponent,
     OrderSuccessComponent,
+    NewProductSuccessComponent,
   ],
   imports: [
     BrowserModule,

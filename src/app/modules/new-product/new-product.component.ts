@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder,  Validators } from '@angular/forms';
+import { FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Model } from '../../interfaces/data.model';
 import { ModelsService } from '../../services/models.servise';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-product',
@@ -10,9 +11,11 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./new-product.component.css']
 })
 export class NewProductComponent implements OnInit, OnDestroy {
-  products: number;
-  imgString;
-  newProduct: Model = {
+
+  productId: number;
+  imgString = '';
+  newProduct = {};
+  anewProduct: Model = {
     id: 10,
     imgUrl: null,
     price: 1342,
@@ -28,61 +31,114 @@ export class NewProductComponent implements OnInit, OnDestroy {
     size: ['S', 'L', 'XL'],
     review: [],
   }
+  uploadedFiles: any[] = [];
   isSubmitted = false;
+
   subscription: Subscription;
-  constructor(private fb: FormBuilder, private modelService: ModelsService) {}
+  constructor(
+    private fb: FormBuilder, 
+    private modelService: ModelsService,
+    private router: Router
+    ) {}
 
   ngOnInit(): void {
     this.setId();
-    console.log(this.products);
-    console.log(this.newProduct);
-   
   }
-  uploadedFiles: any[] = [];
+
 
   addProductForm = this.fb.group({
-       price: ['', Validators.required ],
-       discount: ['', Validators.required ],
-    
+       price: ['', [Validators.required, Validators.pattern("^\\d+$")]],
+       discount: ['', [Validators.required, Validators.pattern("^\\d+$")]],
+       main: [false],
+       shop: ['', Validators.required ],
+       name: ['', Validators.required ],
+       description: ['', Validators.required ],
+       shipping: ['', Validators.required ],
+       discountUntil: ['', Validators.required ],
+       isNew: [true],
+       colorArray: this.fb.array([this.fb.control('', Validators.required)]),
+       sizeArray: this.fb.array([this.fb.control('', Validators.required)]),
     });
   
   setId(): void {   
       const modelsObservable = this.modelService.getAllProducts();
       this.subscription = modelsObservable.subscribe((modelsData: Model[]) => {
-        this.products = modelsData.length + 1;
+        this.productId = modelsData.length + 1;
       });
     }
 
-  submitForm() {
-    this.isSubmitted = true;
-    
-    if (!this.addProductForm.valid) {
-      return false;
-    } else {
-      console.log(this.addProductForm.value);
- //     Object.assign(this.orderFormData, this.emptyData);
-  //    console.log(this.orderFormData);
-   //   this.router.navigate(['/orderSuccess']);
-    }
-  }
-
-  fileUploader(event) {
+  fileUploader(event: any): void {
     for(const file of event.files) {
       this.uploadedFiles.push(file);
     }
-    console.log('UPLOAD', event);
-
     const reader = new FileReader();   
     reader.readAsDataURL(this.uploadedFiles[0]); 
-    
-    reader.onloadend = (e) => {
-      console.log(reader.result);
-      this.imgString = reader.result;
-   };
+      
+    reader.onloadend = () => {
+      this.imgString = String(reader.result);
+    };
+  }
+  
+  fileSelect(event: any): void {
+    console.log('SELECT', event);
   }
 
-  fileSelect(event){
-    console.log('SELECT', event);
+  get colorArray(): FormArray {
+    return this.addProductForm.get('colorArray') as FormArray;
+  }
+
+  addColor(): void {
+    this.colorArray.push(this.fb.control('', Validators.required));
+  }
+
+  getColorValidity(i: any): boolean {
+    return (<FormArray>this.addProductForm.get('colorArray')).controls[i].invalid;
+  }
+
+  removeColor(index): void {
+    this.colorArray.removeAt(index);
+  }
+
+  get sizeArray(): FormArray {
+    return this.addProductForm.get('sizeArray') as FormArray;
+  }
+
+  addSize(): void {
+    this.sizeArray.push(this.fb.control('', Validators.required));
+  }
+
+  getSizeValidity(i: any): boolean {
+    return (<FormArray>this.addProductForm.get('sizeArray')).controls[i].invalid;
+  }
+
+  removeSize(index): void {
+    this.sizeArray.removeAt(index);
+  }
+
+
+  submitForm(): boolean {
+    this.isSubmitted = true;
+    if (this.addProductForm.valid && this.imgString.length != 0) {
+      this.newProduct['id'] = this.productId;
+      this.newProduct['imgUrl'] = this.imgString;
+      this.newProduct['price'] = this.addProductForm.get('price').value;
+      this.newProduct['discount'] = this.addProductForm.get('discount').value;
+      this.newProduct['main'] = this.addProductForm.get('main').value;
+      this.newProduct['shop'] = this.addProductForm.get('shop').value;
+      this.newProduct['name'] = this.addProductForm.get('name').value;
+      this.newProduct['description'] = this.addProductForm.get('description').value;
+      this.newProduct['shipping'] = this.addProductForm.get('shipping').value;
+      this.newProduct['discountUntil'] = this.addProductForm.get('discountUntil').value.toISOString().substr(0, 19).replace('T', ' ');
+      this.newProduct['new'] = this.addProductForm.get('isNew').value;
+      this.newProduct['color'] = this.colorArray.value;
+      this.newProduct['size'] = this.sizeArray.value;
+      this.newProduct['review'] = [];
+    } else {
+      return false;
+    }
+      this.modelService.addToData(this.newProduct);
+      this.router.navigateByUrl('/newProductSuccess', {  state: this.newProduct });
+    
   }
 
   ngOnDestroy(): void {

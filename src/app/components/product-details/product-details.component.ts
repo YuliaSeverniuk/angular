@@ -31,16 +31,21 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     ) { }
 
   ngOnInit(): void {
-   this.getProduct();
+      this.getProduct();
   }
 
   getProduct(): void  {
     const id: string = this.route.snapshot.paramMap.get('id');
     console.log(id)
     const numId: number = +id;
-    this.subscription = this.modelService.getProductById(numId).subscribe((product) => this.product = product);
+    this.subscription = this.modelService.getProductById(numId).subscribe((product) => {
+      this.product = product;
+      this.slashColor = this.product.color.join(',').replace(/,/g, '/').split();
+    });
+  }
 
-    this.slashColor = this.product.color.join(',').replace(/,/g, '/').split();
+  isEmptyObject(obj): boolean {
+    return (obj && (Object.keys(obj).length === 0));
   }
 
   receiveSlideEvent(event: any): void {

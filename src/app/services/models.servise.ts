@@ -16,5 +16,9 @@ export class ModelsService {
   getProductById(id: number): Observable<Model>{
     return this.getAllProducts().pipe(map(products => products.find(product => product.id === id)));
   }
+
+  addToData(newProduct: any): void {
+    data.push(newProduct);
+  }
 }
  

@@ -1,0 +1,25 @@
+* {
+  padding: 10px;
+}
+
+.preview {
+  width: 100px;
+}
+
+label {
+  font-size: 18px;
+}
+
+.inputArrays {
+  height: 38px;
+  width: 47%;
+  border: solid 1px lightgray;
+  border-radius: 3px;
+}
+
+em {
+  margin-left: 10px;
+  background-color: rgb(2, 117, 216);
+  color: white;
+  border-radius: 3px;
+}
